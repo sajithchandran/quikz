@@ -1,0 +1,97 @@
+<div>
+    <h2 id="page-heading">
+        <span>Question Logs</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-question-log" [routerLink]="['/question-log/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Question Log
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="questionLogs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="a"><span>A</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="b"><span>B</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="c"><span>C</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="d"><span>D</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="answer"><span>Answer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updatedDate"><span>Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sendForApprovalDate"><span>Send For Approval Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="approvedDate"><span>Approved Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="questionType"><span>Question Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="difficulty"><span>Difficulty</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="question.id"><span>Question</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let questionLog of questionLogs ;trackBy: trackId">
+                <td><a [routerLink]="['/question-log', questionLog.id, 'view' ]">{{questionLog.id}}</a></td>
+                <td>{{questionLog.a}}</td>
+                <td>{{questionLog.b}}</td>
+                <td>{{questionLog.c}}</td>
+                <td>{{questionLog.d}}</td>
+                <td>{{questionLog.answer}}</td>
+                <td>{{questionLog.createdDate | date:'medium'}}</td>
+                <td>{{questionLog.updatedDate | date:'medium'}}</td>
+                <td>{{questionLog.sendForApprovalDate | date:'medium'}}</td>
+                <td>{{questionLog.approvedDate | date:'medium'}}</td>
+                <td>{{questionLog.questionType}}</td>
+                <td>{{questionLog.difficulty}}</td>
+                <td>{{questionLog.status}}</td>
+                <td>
+                    <div *ngIf="questionLog.question">
+                        <a [routerLink]="['../question', questionLog.question?.id, 'view' ]" >{{questionLog.question?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/question-log', questionLog.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/question-log', questionLog.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'question-log/'+ questionLog.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

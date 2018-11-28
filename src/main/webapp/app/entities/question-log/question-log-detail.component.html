@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="questionLog">
+            <h2><span>Question Log</span> {{questionLog.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>A</span></dt>
+                <dd>
+                    <span>{{questionLog.a}}</span>
+                </dd>
+                <dt><span>B</span></dt>
+                <dd>
+                    <span>{{questionLog.b}}</span>
+                </dd>
+                <dt><span>C</span></dt>
+                <dd>
+                    <span>{{questionLog.c}}</span>
+                </dd>
+                <dt><span>D</span></dt>
+                <dd>
+                    <span>{{questionLog.d}}</span>
+                </dd>
+                <dt><span>Answer</span></dt>
+                <dd>
+                    <span>{{questionLog.answer}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{questionLog.createdDate}}</span>
+                </dd>
+                <dt><span>Updated Date</span></dt>
+                <dd>
+                    <span>{{questionLog.updatedDate}}</span>
+                </dd>
+                <dt><span>Send For Approval Date</span></dt>
+                <dd>
+                    <span>{{questionLog.sendForApprovalDate}}</span>
+                </dd>
+                <dt><span>Approved Date</span></dt>
+                <dd>
+                    <span>{{questionLog.approvedDate}}</span>
+                </dd>
+                <dt><span>Question Type</span></dt>
+                <dd>
+                    <span>{{questionLog.questionType}}</span>
+                </dd>
+                <dt><span>Difficulty</span></dt>
+                <dd>
+                    <span>{{questionLog.difficulty}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{questionLog.status}}</span>
+                </dd>
+                <dt><span>Question</span></dt>
+                <dd>
+                    <div *ngIf="questionLog.question">
+                        <a [routerLink]="['/question', questionLog.question?.id, 'view']">{{questionLog.question?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/question-log', questionLog.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

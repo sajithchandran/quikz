@@ -1,0 +1,116 @@
+{
+    "name": "Question",
+    "fields": [
+        {
+            "fieldName": "a",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "b",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "c",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "d",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "answer",
+            "fieldType": "Answer",
+            "fieldValues": "A,B,C,D"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "sendForApprovalDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "approvedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "questionType",
+            "fieldType": "QuestionType",
+            "fieldValues": "TEXT,PICTURE,AUDIO,VIDEO"
+        },
+        {
+            "fieldName": "difficulty",
+            "fieldType": "Difficulty",
+            "fieldValues": "VERYEASY,EASY,MODERATE,SOMEWHATHARD,HARD,VERYHARD"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "NEW,WAITNG_FOR_APPROVAL,APPROVED,REJECTED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "createdBy",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "updatedBy",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "approvedBy",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "country",
+            "otherEntityName": "country",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "topic",
+            "otherEntityName": "topic",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "question"
+        }
+    ],
+    "changelogDate": "20181128073951",
+    "entityTableName": "question",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

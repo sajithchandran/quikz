@@ -1,0 +1,152 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-question-heading">Create or edit a Question</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!question.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="question.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_a">A</label>
+                    <input type="text" class="form-control" name="a" id="field_a"
+                        [(ngModel)]="question.a" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_b">B</label>
+                    <input type="text" class="form-control" name="b" id="field_b"
+                        [(ngModel)]="question.b" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_c">C</label>
+                    <input type="text" class="form-control" name="c" id="field_c"
+                        [(ngModel)]="question.c" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_d">D</label>
+                    <input type="text" class="form-control" name="d" id="field_d"
+                        [(ngModel)]="question.d" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_answer">Answer</label>
+                    <select class="form-control" name="answer" [(ngModel)]="question.answer" id="field_answer" >
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="createdDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_updatedDate">Updated Date</label>
+                    <div class="d-flex">
+                        <input id="field_updatedDate" type="datetime-local" class="form-control" name="updatedDate" [(ngModel)]="updatedDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sendForApprovalDate">Send For Approval Date</label>
+                    <div class="d-flex">
+                        <input id="field_sendForApprovalDate" type="datetime-local" class="form-control" name="sendForApprovalDate" [(ngModel)]="sendForApprovalDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_approvedDate">Approved Date</label>
+                    <div class="d-flex">
+                        <input id="field_approvedDate" type="datetime-local" class="form-control" name="approvedDate" [(ngModel)]="approvedDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_questionType">Question Type</label>
+                    <select class="form-control" name="questionType" [(ngModel)]="question.questionType" id="field_questionType" >
+                        <option value="TEXT">TEXT</option>
+                        <option value="PICTURE">PICTURE</option>
+                        <option value="AUDIO">AUDIO</option>
+                        <option value="VIDEO">VIDEO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_difficulty">Difficulty</label>
+                    <select class="form-control" name="difficulty" [(ngModel)]="question.difficulty" id="field_difficulty" >
+                        <option value="VERYEASY">VERYEASY</option>
+                        <option value="EASY">EASY</option>
+                        <option value="MODERATE">MODERATE</option>
+                        <option value="SOMEWHATHARD">SOMEWHATHARD</option>
+                        <option value="HARD">HARD</option>
+                        <option value="VERYHARD">VERYHARD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <select class="form-control" name="status" [(ngModel)]="question.status" id="field_status" >
+                        <option value="NEW">NEW</option>
+                        <option value="WAITNG_FOR_APPROVAL">WAITNG_FOR_APPROVAL</option>
+                        <option value="APPROVED">APPROVED</option>
+                        <option value="REJECTED">REJECTED</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <select class="form-control" id="field_createdBy" name="createdBy" [(ngModel)]="question.createdBy" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === question.createdBy?.id ? question.createdBy : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_updatedBy">Updated By</label>
+                    <select class="form-control" id="field_updatedBy" name="updatedBy" [(ngModel)]="question.updatedBy" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === question.updatedBy?.id ? question.updatedBy : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_approvedBy">Approved By</label>
+                    <select class="form-control" id="field_approvedBy" name="approvedBy" [(ngModel)]="question.approvedBy" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === question.approvedBy?.id ? question.approvedBy : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="question.country">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === question.country?.id ? question.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" [(ngModel)]="question.category">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="categoryOption.id === question.category?.id ? question.category : categoryOption" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_topic">Topic</label>
+                    <select class="form-control" id="field_topic" name="topic" [(ngModel)]="question.topic">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="topicOption.id === question.topic?.id ? question.topic : topicOption" *ngFor="let topicOption of topics; trackBy: trackTopicById">{{topicOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
