@@ -1,0 +1,74 @@
+{
+    "name": "QuestionLog",
+    "fields": [
+        {
+            "fieldName": "a",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "b",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "c",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "d",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "answer",
+            "fieldType": "Answer",
+            "fieldValues": "A,B,C,D"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "sendForApprovalDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "approvedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "questionType",
+            "fieldType": "QuestionType",
+            "fieldValues": "TEXT,PICTURE,AUDIO,VIDEO"
+        },
+        {
+            "fieldName": "difficulty",
+            "fieldType": "Difficulty",
+            "fieldValues": "VERYEASY,EASY,MODERATE,SOMEWHATHARD,HARD,VERYHARD"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "NEW,WAITNG_FOR_APPROVAL,APPROVED,REJECTED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181128073952",
+    "entityTableName": "question_log",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

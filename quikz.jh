@@ -1,0 +1,97 @@
+entity Question {
+
+	a String,
+	b String,
+	c String,
+	d String,
+	answer Answer,
+	createdDate Instant,
+	updatedDate Instant,
+	sendForApprovalDate Instant,
+	approvedDate Instant,
+	questionType QuestionType,
+	difficulty Difficulty,
+	status Status
+}
+
+entity QuestionLog {
+
+	a String,
+	b String,
+	c String,
+	d String,
+	answer Answer,
+	createdDate Instant,
+	updatedDate Instant,
+	sendForApprovalDate Instant,
+	approvedDate Instant,
+	questionType QuestionType,
+	difficulty Difficulty,
+	status Status
+}
+
+entity Country {
+	countryName String
+}
+
+entity Category {
+	name String
+}
+
+entity Topic {
+     name String			
+}
+
+
+enum QuestionType {
+	TEXT, PICTURE, AUDIO, VIDEO
+}
+
+enum Status {	
+	NEW, WAITNG_FOR_APPROVAL, APPROVED, REJECTED
+}
+enum Difficulty {
+	VERYEASY, EASY, MODERATE, SOMEWHATHARD, HARD, VERYHARD  
+}
+
+enum Answer {
+	A, B, C, D
+}
+
+relationship OneToOne {
+	Question{createdBy} to User
+}
+
+relationship OneToOne {
+	Question{updatedBy} to User
+}
+
+relationship OneToOne {
+	Question{approvedBy} to User
+}
+
+relationship OneToOne {
+	Question{country} to Country
+}
+
+relationship OneToOne {
+	Question{category} to Category
+}
+
+relationship OneToOne {
+	Question{topic} to Topic
+}
+
+relationship OneToMany {
+	Category{topic} to Topic
+}
+
+relationship ManyToOne {
+	QuestionLog{question} to Question
+}
+
+paginate all with infinite-scroll
+
+service all with serviceImpl
+
+

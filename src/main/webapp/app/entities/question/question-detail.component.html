@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="question">
+            <h2><span>Question</span> {{question.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>A</span></dt>
+                <dd>
+                    <span>{{question.a}}</span>
+                </dd>
+                <dt><span>B</span></dt>
+                <dd>
+                    <span>{{question.b}}</span>
+                </dd>
+                <dt><span>C</span></dt>
+                <dd>
+                    <span>{{question.c}}</span>
+                </dd>
+                <dt><span>D</span></dt>
+                <dd>
+                    <span>{{question.d}}</span>
+                </dd>
+                <dt><span>Answer</span></dt>
+                <dd>
+                    <span>{{question.answer}}</span>
+                </dd>
+                <dt><span>Created Date</span></dt>
+                <dd>
+                    <span>{{question.createdDate}}</span>
+                </dd>
+                <dt><span>Updated Date</span></dt>
+                <dd>
+                    <span>{{question.updatedDate}}</span>
+                </dd>
+                <dt><span>Send For Approval Date</span></dt>
+                <dd>
+                    <span>{{question.sendForApprovalDate}}</span>
+                </dd>
+                <dt><span>Approved Date</span></dt>
+                <dd>
+                    <span>{{question.approvedDate}}</span>
+                </dd>
+                <dt><span>Question Type</span></dt>
+                <dd>
+                    <span>{{question.questionType}}</span>
+                </dd>
+                <dt><span>Difficulty</span></dt>
+                <dd>
+                    <span>{{question.difficulty}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{question.status}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    {{question.createdBy?.id}}
+                </dd>
+                <dt><span>Updated By</span></dt>
+                <dd>
+                    {{question.updatedBy?.id}}
+                </dd>
+                <dt><span>Approved By</span></dt>
+                <dd>
+                    {{question.approvedBy?.id}}
+                </dd>
+                <dt><span>Country</span></dt>
+                <dd>
+                    <div *ngIf="question.country">
+                        <a [routerLink]="['/country', question.country?.id, 'view']">{{question.country?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="question.category">
+                        <a [routerLink]="['/category', question.category?.id, 'view']">{{question.category?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Topic</span></dt>
+                <dd>
+                    <div *ngIf="question.topic">
+                        <a [routerLink]="['/topic', question.topic?.id, 'view']">{{question.topic?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/question', question.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

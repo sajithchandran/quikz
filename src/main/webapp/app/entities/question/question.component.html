@@ -1,0 +1,121 @@
+<div>
+    <h2 id="page-heading">
+        <span>Questions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-question" [routerLink]="['/question/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Question
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="questions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="a"><span>A</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="b"><span>B</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="c"><span>C</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="d"><span>D</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="answer"><span>Answer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updatedDate"><span>Updated Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sendForApprovalDate"><span>Send For Approval Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="approvedDate"><span>Approved Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="questionType"><span>Question Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="difficulty"><span>Difficulty</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy.id"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updatedBy.id"><span>Updated By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="approvedBy.id"><span>Approved By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="country.id"><span>Country</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="category.id"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="topic.id"><span>Topic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let question of questions ;trackBy: trackId">
+                <td><a [routerLink]="['/question', question.id, 'view' ]">{{question.id}}</a></td>
+                <td>{{question.a}}</td>
+                <td>{{question.b}}</td>
+                <td>{{question.c}}</td>
+                <td>{{question.d}}</td>
+                <td>{{question.answer}}</td>
+                <td>{{question.createdDate | date:'medium'}}</td>
+                <td>{{question.updatedDate | date:'medium'}}</td>
+                <td>{{question.sendForApprovalDate | date:'medium'}}</td>
+                <td>{{question.approvedDate | date:'medium'}}</td>
+                <td>{{question.questionType}}</td>
+                <td>{{question.difficulty}}</td>
+                <td>{{question.status}}</td>
+                <td>
+                    {{question.createdBy?.id}}
+                </td>
+                <td>
+                    {{question.updatedBy?.id}}
+                </td>
+                <td>
+                    {{question.approvedBy?.id}}
+                </td>
+                <td>
+                    <div *ngIf="question.country">
+                        <a [routerLink]="['../country', question.country?.id, 'view' ]" >{{question.country?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.category">
+                        <a [routerLink]="['../category', question.category?.id, 'view' ]" >{{question.category?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.topic">
+                        <a [routerLink]="['../topic', question.topic?.id, 'view' ]" >{{question.topic?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/question', question.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/question', question.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'question/'+ question.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

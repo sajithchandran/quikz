@@ -1,0 +1,26 @@
+{
+    "name": "Category",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "topic",
+            "otherEntityName": "topic",
+            "otherEntityRelationshipName": "category"
+        }
+    ],
+    "changelogDate": "20181128073954",
+    "entityTableName": "category",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
